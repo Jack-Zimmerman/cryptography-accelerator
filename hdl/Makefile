@@ -118,7 +118,7 @@ veryclean: clean
 sim_%_src: 
 	@echo -e "Creating executable for source simulation...\n\n"
 	@mkdir -p $(BUILD) && rm -rf $(BUILD)/*
-	@$(SIM_SRC_TOOL) -binary -j 0 --Mdir $(BUILD) --trace -y $(SRC) $(TB)/$*_tb.sv
+	@$(SIM_SRC_TOOL) -binary -j 0 --Mdir $(BUILD) --trace -y $(SRC) $(TB)/$*_tb.sv 
 	@echo -e "\nSource Compilation complete!\n"
 	@echo -e "Simulating source...\n"
 	@$(BUILD)/V$*_tb
