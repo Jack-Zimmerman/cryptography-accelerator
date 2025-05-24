@@ -13,6 +13,13 @@ logic [255:0] hash;
 
 always #5 clk_i = ~clk_i;
 
+task pass_tick();
+    clk_i = 1;
+    #5;
+    clk_i = 0;
+    #5;
+endtask
+
 doublesha DUT (
     .clk_i(clk_i),
     .rst_i(rst_i),
@@ -22,16 +29,32 @@ doublesha DUT (
     .hash(hash)
 );
 
+task reset();
+    rst_i = 1;
+    #(1)
+    rst_i = 0;
+endtask
+
+
 initial begin
     $dumpfile("waveforms/test.vcd");
     $dumpvars(0);
+
+    while (!complete) begin
+        pass_tick();
+    end
+
+    $display("%h", hash);
+    reset();
+
+    while (!complete) begin
+        pass_tick();
+    end
+
+    $display("%h", hash);
+    $finish;
+
 end
 
-always begin
-    if(complete) begin
-        $display("%h", hash);
-        $finish;
-    end
-end 
 
 endmodule

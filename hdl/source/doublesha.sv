@@ -5,7 +5,6 @@
 module doublesha(
     input logic clk_i, //clk in
     input logic rst_i, //reset in
-    input logic start_tick, //start signifier
     input logic [639:0] block_info,
     output logic complete,
     output logic [255:0] hash
@@ -15,7 +14,6 @@ module doublesha(
 logic [31:0] text_i;
 logic [511:0] tmp_i;
 logic [31:0] tmp; 
-logic [1023:0] message;
 logic [255:0] first_hash; 
 logic [2:0] cmd_i = 3'b010;
 logic cmd_w_i = 1;
@@ -29,6 +27,11 @@ logic second_cycle = 0;
 //delay variables
 logic [3:0] delay_left = 0;
 
+logic [3:0] output_index = 4'b0;
+logic [4:0] internal_index = 5'b0;
+
+//msb represents which hash we are on, lsb represents first or second pass-thru (512 vs 1024 bit)
+logic [3:0] state = 0; //set to 1 is on second hash, otherwise set to first hash 
 
 
 sha256 sha_core(
@@ -41,11 +44,6 @@ sha256 sha_core(
 	.cmd_o(cmd_o)
 );
 
-logic [3:0] output_index = 4'b0;
-logic [4:0] internal_index = 5'b0;
-
-//msb represents which hash we are on, lsb represents first or second pass-thru (512 vs 1024 bit)
-logic [3:0] state = 0; //set to 1 is on second hash, otherwise set to first hash 
 
 //steps
 //step 0: setup first hash data
@@ -57,7 +55,16 @@ logic [3:0] state = 0; //set to 1 is on second hash, otherwise set to first hash
 //step 7: digesting second hash
 
 always @(posedge clk_i) begin
-    if (delay_left != 0) begin
+    if (rst_i) begin
+        delay_left = 0;
+        first_hash = 0;
+        second_cycle = 0;
+        hash_index = 0;
+        tmp_i = 0;
+        complete = 0;
+        state = 0;
+    end
+    else if (delay_left != 0) begin
         //don't do anything this cycle and delay 
         delay_left -= 1;
     end
@@ -66,7 +73,7 @@ always @(posedge clk_i) begin
         //$display("Internal hashing delay! %d %d", state, internal_index);
     end
     else begin
-        if (state == 0) begin
+        if (state == 0) begin 
             cmd_i = 3'b010;
             cmd_w_i = 1'b1;
             tmp_i = {block_info, `SHA256_TEST_PADDING}[1023:512];
