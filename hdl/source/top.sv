@@ -1,9 +1,13 @@
 module top(
-    input clk
-)
+    input logic CLK_100MHZ,
+    input logic UART_TXD,
+    output logic UART_RXD
+);
 
 
-doublesha DUT
+fsm FSM (
+    .
+);
 
 
 endmodule

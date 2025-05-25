@@ -9,10 +9,9 @@ module timer
 
 
 	logic [26:0] cycles;
-	logic [26:0] threshold;
 	
 	
-	always @(posedge clk, posedge n_rst) begin
+	always @(posedge clk, posedge rst_i) begin
 		//reset timer
 		if (rst_i) begin
 			cycles <= 0; 
