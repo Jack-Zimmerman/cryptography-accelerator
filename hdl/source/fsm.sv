@@ -5,7 +5,8 @@ module fsm(
     input logic second_tick,
     input logic rst_i,
     output logic hash_enable, //if we are hashing
-    output logic write_enable //if we are writing
+    output logic write_enable, //if we are writing
+    output logic read_enable
 );
 
 typedef enum logic [2:0] {RECIEVING, HASHING, SENDING} State;
@@ -47,5 +48,6 @@ end
 
 assign hash_enable = (state == HASHING);
 assign write_enable = (state == SENDING);
+assign read_enable = (state == RECIEVING);
 
 endmodule
