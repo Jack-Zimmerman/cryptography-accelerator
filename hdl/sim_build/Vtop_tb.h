@@ -5,20 +5,22 @@
 // The class here is then constructed to instantiate the design.
 // See the Verilator manual for examples.
 
-#ifndef VERILATED_VTIMER_TB_H_
-#define VERILATED_VTIMER_TB_H_  // guard
+#ifndef VERILATED_VTOP_TB_H_
+#define VERILATED_VTOP_TB_H_  // guard
 
 #include "verilated.h"
 
-class Vtimer_tb__Syms;
-class Vtimer_tb___024root;
+class Vtop_tb__Syms;
+class Vtop_tb___024root;
 class VerilatedVcdC;
+class Vtop_tb_doublesha;
+
 
 // This class is the main interface to the Verilated model
-class alignas(VL_CACHE_LINE_BYTES) Vtimer_tb VL_NOT_FINAL : public VerilatedModel {
+class alignas(VL_CACHE_LINE_BYTES) Vtop_tb VL_NOT_FINAL : public VerilatedModel {
   private:
     // Symbol table holding complete model state (owned by this class)
-    Vtimer_tb__Syms* const vlSymsp;
+    Vtop_tb__Syms* const vlSymsp;
 
   public:
 
@@ -29,22 +31,32 @@ class alignas(VL_CACHE_LINE_BYTES) Vtimer_tb VL_NOT_FINAL : public VerilatedMode
     // CELLS
     // Public to allow access to /* verilator public */ items.
     // Otherwise the application code can consider these internals.
+    Vtop_tb_doublesha* const __PVT__top_tb__DOT__TOP__DOT__HASHCORE__DOT__genblk1__BRA__0__KET____DOT__HASHCORE;
+    Vtop_tb_doublesha* const __PVT__top_tb__DOT__TOP__DOT__HASHCORE__DOT__genblk1__BRA__1__KET____DOT__HASHCORE;
+    Vtop_tb_doublesha* const __PVT__top_tb__DOT__TOP__DOT__HASHCORE__DOT__genblk1__BRA__2__KET____DOT__HASHCORE;
+    Vtop_tb_doublesha* const __PVT__top_tb__DOT__TOP__DOT__HASHCORE__DOT__genblk1__BRA__3__KET____DOT__HASHCORE;
+    Vtop_tb_doublesha* const __PVT__top_tb__DOT__TOP__DOT__HASHCORE__DOT__genblk1__BRA__4__KET____DOT__HASHCORE;
+    Vtop_tb_doublesha* const __PVT__top_tb__DOT__TOP__DOT__HASHCORE__DOT__genblk1__BRA__5__KET____DOT__HASHCORE;
+    Vtop_tb_doublesha* const __PVT__top_tb__DOT__TOP__DOT__HASHCORE__DOT__genblk1__BRA__6__KET____DOT__HASHCORE;
+    Vtop_tb_doublesha* const __PVT__top_tb__DOT__TOP__DOT__HASHCORE__DOT__genblk1__BRA__7__KET____DOT__HASHCORE;
+    Vtop_tb_doublesha* const __PVT__top_tb__DOT__TOP__DOT__HASHCORE__DOT__genblk1__BRA__8__KET____DOT__HASHCORE;
+    Vtop_tb_doublesha* const __PVT__top_tb__DOT__TOP__DOT__HASHCORE__DOT__genblk1__BRA__9__KET____DOT__HASHCORE;
 
     // Root instance pointer to allow access to model internals,
     // including inlined /* verilator public_flat_* */ items.
-    Vtimer_tb___024root* const rootp;
+    Vtop_tb___024root* const rootp;
 
     // CONSTRUCTORS
     /// Construct the model; called by application code
     /// If contextp is null, then the model will use the default global context
     /// If name is "", then makes a wrapper with a
     /// single model invisible with respect to DPI scope names.
-    explicit Vtimer_tb(VerilatedContext* contextp, const char* name = "TOP");
-    explicit Vtimer_tb(const char* name = "TOP");
+    explicit Vtop_tb(VerilatedContext* contextp, const char* name = "TOP");
+    explicit Vtop_tb(const char* name = "TOP");
     /// Destroy the model; called (often implicitly) by application code
-    virtual ~Vtimer_tb();
+    virtual ~Vtop_tb();
   private:
-    VL_UNCOPYABLE(Vtimer_tb);  ///< Copying not allowed
+    VL_UNCOPYABLE(Vtop_tb);  ///< Copying not allowed
 
   public:
     // API METHODS

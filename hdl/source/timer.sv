@@ -1,3 +1,5 @@
+`timescale 1ns/10ps
+
 module timer
 	# (parameter FREQUENCY = 100_000_000)
 	(

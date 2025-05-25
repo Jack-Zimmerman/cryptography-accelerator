@@ -1,7 +1,11 @@
-module top(
+`timescale 1ns/10ps
+
+module top 
+#(parameter CLK_RATE, parameter CLKS_PER_BIT)
+(
     input logic CLK_100MHZ,
-    input logic UART_TXD,
-    output logic UART_RXD
+    input logic UART_RXD,
+    output logic UART_TXD
 );
 
 
@@ -34,7 +38,7 @@ logic [31:0] best_hash_nonce; //nonce corrosponding with best_hash
 
 
 
-timer TIMER (
+timer #(CLK_RATE) TIMER (
     .clk(CLK_100MHZ),
     .enable(hash_enable),
     .rst_i(rst_i),
@@ -62,14 +66,14 @@ hashcore HASHCORE (
     .best_hash_nonce(best_hash_nonce)
 );
 
-uart_rx UART_RX(
+uart_rx #(`CLKS_PER_BIT) UART_RX(
     .i_Clock(CLK_100MHZ),
     .i_Rx_Serial(UART_RXD),
     .o_Rx_DV(finished_read_byte),
     .o_Rx_Byte(rx_byte)
 );
 
-uart_tx UART_TX (
+uart_tx #(`CLKS_PER_BIT) UART_TX (
     .i_Clock(CLK_100MHZ),
     .i_Tx_DV(write_enable),
     .i_Tx_Byte(tx_byte),
@@ -82,30 +86,44 @@ uart_tx UART_TX (
 always @(posedge CLK_100MHZ) begin
     //handle rx_byte
     if (read_enable) begin 
-        if (finished_read_byte) begin
+        finished_sending = 0;
+
+        if (finished_read_byte || read_bytes_passed == 8'd76) begin
             if (read_bytes_passed == 8'd76) begin // we read the whole byte
                 finished_recieving = 1; //set finish correctly
+                $display("block_info: %h", block_info);
                 read_bytes_passed = 0; 
             end else begin //otherwise read byte
                 read_bytes_passed += 1;
 
                 //serially load in block
-                block_info[7:0] = rx_byte;
-                block_info = block_info << 8;
+                block_info[607:600] = rx_byte;
+                
+                //shift for every read except the last
+                if (read_bytes_passed != 8'd76) begin
+                    block_info = block_info >> 8;
+                end
             end
         end
     end else if (write_enable) begin
+        finished_recieving = 0;
+
         if (finished_write_byte || write_bytes_passed == 3'b0) begin // we write the next byte
             if (write_bytes_passed == 3'd4) begin
                 finished_sending = 1;
                 write_bytes_passed = 0;
+                $display("Nonce for hash: %h", best_hash);
             end else begin //serially feed through the nonce
-                tx_byte = best_hash_nonce[7:0];
+                tx_byte = best_hash_nonce[31:24];
+                $display("Wrote byte: %h for nonce: %h", tx_byte, best_hash_nonce);
                 best_hash_nonce = best_hash_nonce << 8;
+
 
                 write_bytes_passed += 1;
             end
         end 
+    end else begin
+        //hashing
     end
 end
 

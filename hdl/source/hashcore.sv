@@ -53,7 +53,6 @@ end
 
 always @(posedge clk) begin
     if (!enable) begin
-        $display("lol");
         //don't do anything
     end else if (rst_i) begin
         best_hash_reverse = {256{1'b1}};

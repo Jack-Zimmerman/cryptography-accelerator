@@ -1,3 +1,5 @@
+`timescale 1ns/10ps
+
 module fsm(
     input logic clk,
     input logic finished_recieving, //if we are recieving bits from the computer
