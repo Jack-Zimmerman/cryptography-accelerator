@@ -1,11 +1,13 @@
 `timescale 1ns/10ps
+`define CLK_RATE 100_000_000
+`define CLKS_PER_BIT 2000
 
 module top 
-#(parameter CLK_RATE, parameter CLKS_PER_BIT)
 (
     input logic CLK_100MHZ,
-    input logic UART_RXD,
-    output logic UART_TXD
+    output logic UART_RXD,
+    input logic UART_TXD,
+    output logic [15:0] LED
 );
 
 
@@ -20,7 +22,7 @@ logic finished_write_byte; //byte completion for tx
 logic write_enable; //enable for UART tx
 logic read_enable;
 logic [7:0] read_bytes_passed; //we need to tally 608/8 = 76 bytes to read block info
-logic [2:0] write_bytes_passed; //we need to tally 32/8 = 4 bytes to transmit nonce
+logic [7:0] write_bytes_passed; //we need to tally 32/8 = 4 bytes to transmit nonce
 logic [7:0] tx_byte; //feed buffer for tx
 logic [7:0] rx_byte; //reciever buffer from rx
 logic sending; //sending status bit
@@ -32,13 +34,15 @@ logic second_tick; //goes high when second has passed
 //MINING VARIABLES
 logic hash_enable; //enable for hashing 
 logic [607:0] block_info; //everything needed for hashing besides nonce
+logic [127:0] repeat_bytes; //bytes repeated for safety
 logic [255:0] best_hash; //lowest hash achieved
 logic [31:0] best_hash_nonce; //nonce corrosponding with best_hash
+logic [31:0] best_hash_nonce_copy;
 
 
 
 
-timer #(CLK_RATE) TIMER (
+timer #(`CLK_RATE) TIMER (
     .clk(CLK_100MHZ),
     .enable(hash_enable),
     .rst_i(rst_i),
@@ -68,7 +72,7 @@ hashcore HASHCORE (
 
 uart_rx #(`CLKS_PER_BIT) UART_RX(
     .i_Clock(CLK_100MHZ),
-    .i_Rx_Serial(UART_RXD),
+    .i_Rx_Serial(UART_TXD),
     .o_Rx_DV(finished_read_byte),
     .o_Rx_Byte(rx_byte)
 );
@@ -78,9 +82,10 @@ uart_tx #(`CLKS_PER_BIT) UART_TX (
     .i_Tx_DV(write_enable),
     .i_Tx_Byte(tx_byte),
     .o_Tx_Active(sending),
-    .o_Tx_Serial(UART_TXD),
+    .o_Tx_Serial(UART_RXD),
     .o_Tx_Done(finished_write_byte)
 );
+
 
 
 always @(posedge CLK_100MHZ) begin
@@ -108,16 +113,30 @@ always @(posedge CLK_100MHZ) begin
     end else if (write_enable) begin
         finished_recieving = 0;
 
-        if (finished_write_byte || write_bytes_passed == 3'b0) begin // we write the next byte
-            if (write_bytes_passed == 3'd4) begin
+        if (finished_write_byte || write_bytes_passed == 8'b0) begin // we write the next byte
+            if (write_bytes_passed == 8'b0) begin
+                //copy bytes of nonce 4 times for safety
+                best_hash_nonce_copy = best_hash_nonce;
+
+                for (int a = 0; a < 4; a++) begin
+                    for (int b = 0; b < 4; b++) begin
+                        repeat_bytes[127:120] = best_hash_nonce_copy[7:0];
+                        repeat_bytes = repeat_bytes >> 8;
+                    end
+
+                    best_hash_nonce_copy = best_hash_nonce_copy >> 8;
+                end
+                
+            end
+            
+            if (write_bytes_passed == 8'd16) begin
                 finished_sending = 1;
                 write_bytes_passed = 0;
                 $display("Nonce for hash: %h", best_hash);
             end else begin //serially feed through the nonce
-                tx_byte = best_hash_nonce[31:24];
-                $display("Wrote byte: %h for nonce: %h", tx_byte, best_hash_nonce);
-                best_hash_nonce = best_hash_nonce << 8;
-
+                //$display("Wrote byte: %h", tx_byte);
+                tx_byte = repeat_bytes[7:0];
+                repeat_bytes = repeat_bytes >> 8;
 
                 write_bytes_passed += 1;
             end
@@ -127,5 +146,6 @@ always @(posedge CLK_100MHZ) begin
     end
 end
 
+assign LED[15:0] = block_info[23:8];
 
 endmodule

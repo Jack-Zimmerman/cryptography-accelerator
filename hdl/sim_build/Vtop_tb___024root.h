@@ -59,10 +59,13 @@ class alignas(VL_CACHE_LINE_BYTES) Vtop_tb___024root final : public VerilatedMod
     CData/*0:0*/ __Vtrigprevexpr___TOP__top_tb__DOT__CLK_100MHZ__0;
     CData/*0:0*/ __Vtrigprevexpr___TOP__top_tb__DOT__TOP__DOT__rst_i__0;
     CData/*0:0*/ __VactContinue;
+    IData/*31:0*/ top_tb__DOT__nonce;
     IData/*31:0*/ top_tb__DOT__unnamedblk3__DOT__i;
     IData/*31:0*/ top_tb__DOT__unnamedblk3__DOT__unnamedblk4__DOT__b;
     IData/*31:0*/ top_tb__DOT__unnamedblk5__DOT__i;
-    IData/*31:0*/ top_tb__DOT__unnamedblk5__DOT__unnamedblk6__DOT__d;
+    IData/*31:0*/ top_tb__DOT__unnamedblk5__DOT__unnamedblk6__DOT__b;
+    IData/*31:0*/ top_tb__DOT__unnamedblk7__DOT__i;
+    IData/*31:0*/ top_tb__DOT__unnamedblk7__DOT__unnamedblk8__DOT__b;
     VlWide<19>/*607:0*/ top_tb__DOT__TOP__DOT__block_info;
     VlWide<8>/*255:0*/ top_tb__DOT__TOP__DOT__best_hash;
     IData/*31:0*/ top_tb__DOT__TOP__DOT__best_hash_nonce;
@@ -80,7 +83,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vtop_tb___024root final : public VerilatedMod
     VlUnpacked<VlWide<8>/*255:0*/, 10> top_tb__DOT__TOP__DOT__HASHCORE__DOT__output_hashes;
     VlUnpacked<VlWide<8>/*255:0*/, 10> top_tb__DOT__TOP__DOT__HASHCORE__DOT__reverse_output_hashes;
     VlUnpacked<CData/*0:0*/, 10> top_tb__DOT__TOP__DOT__HASHCORE__DOT__completes;
-    VlUnpacked<CData/*0:0*/, 4> __Vm_traceActivity;
+    VlUnpacked<CData/*0:0*/, 5> __Vm_traceActivity;
     VlDelayScheduler __VdlySched;
     VlTriggerVec<1> __VstlTriggered;
     VlTriggerVec<3> __VactTriggered;

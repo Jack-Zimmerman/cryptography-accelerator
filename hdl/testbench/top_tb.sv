@@ -10,12 +10,15 @@ module top_tb();
 
 
     logic [7:0] read_byte;
+    logic [31:0] nonce;
     logic [3:0] bits_read;
+    logic hashing;
 
     top #(`CLK_RATE, `CLKS_PER_BIT) TOP (
         .CLK_100MHZ(CLK_100MHZ),
         .UART_RXD(UART_RXD),
-        .UART_TXD(UART_TXD)
+        .UART_TXD(UART_TXD),
+        .hashing(hashing)
     );
 
     task pass_tick();
@@ -33,7 +36,7 @@ module top_tb();
 
     task pass_second();
         //pass around a second worth of clock cycles
-        for (int i = 0; i < `CLK_RATE; i++) begin
+        for (int i = 0; i < `CLK_RATE - 5000; i++) begin
             pass_tick();
         end
     endtask
@@ -64,25 +67,45 @@ module top_tb();
 
         $display("passing loose second");
 
-        pass_second();
+        while (UART_TXD == 1) begin
+            pass_baud();
+        end
+
 
         for (int i = 0; i < 4; i++) begin
-            pass_baud(); //start bit
-
-            for (int d = 0; d < 8; d++) begin
-                read_byte[7] = UART_TXD;
-                bits_read += 1;
-                
-                if (bits_read != 8) begin
-                    read_byte = read_byte >> 1;
-                end else begin
-                    bits_read = 0;
-                    $display("Recieved byte: %h", read_byte);
-                end
+            pass_baud(); //start
+            for (int b = 0; b < 8; b++) begin
+                nonce[0] = UART_TXD;
+                $display("%b", nonce);
+                nonce = nonce << 1;
+                pass_baud();
             end
 
-            pass_baud(); //stop bit
+            pass_baud(); //end
         end
+
+        pass_baud();
+
+        for (int i = 0; i < 608/8; i++) begin
+            //start bit
+            UART_RXD = 1;
+            pass_baud();
+            UART_RXD = 0;
+            pass_baud();
+
+            for (int b = 0; b < 8; b++) begin
+                UART_RXD = {`SHA256_NO_NONCE}[(i*8 + b)];
+                pass_baud();
+            end
+
+
+            //stop bit
+            UART_RXD = 1;
+            pass_baud();
+        end
+        pass_baud();
+
     end
+
 
 endmodule

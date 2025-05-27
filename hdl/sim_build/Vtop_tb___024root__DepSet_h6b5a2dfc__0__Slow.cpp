@@ -187,11 +187,14 @@ VL_ATTR_COLD void Vtop_tb___024root___ctor_var_reset(Vtop_tb___024root* vlSelf) 
     vlSelf->top_tb__DOT__UART_RXD = VL_RAND_RESET_I(1);
     vlSelf->top_tb__DOT__UART_TXD = VL_RAND_RESET_I(1);
     vlSelf->top_tb__DOT__read_byte = VL_RAND_RESET_I(8);
+    vlSelf->top_tb__DOT__nonce = VL_RAND_RESET_I(32);
     vlSelf->top_tb__DOT__bits_read = VL_RAND_RESET_I(4);
     vlSelf->top_tb__DOT__unnamedblk3__DOT__i = 0;
     vlSelf->top_tb__DOT__unnamedblk3__DOT__unnamedblk4__DOT__b = 0;
     vlSelf->top_tb__DOT__unnamedblk5__DOT__i = 0;
-    vlSelf->top_tb__DOT__unnamedblk5__DOT__unnamedblk6__DOT__d = 0;
+    vlSelf->top_tb__DOT__unnamedblk5__DOT__unnamedblk6__DOT__b = 0;
+    vlSelf->top_tb__DOT__unnamedblk7__DOT__i = 0;
+    vlSelf->top_tb__DOT__unnamedblk7__DOT__unnamedblk8__DOT__b = 0;
     vlSelf->top_tb__DOT__TOP__DOT__rst_i = VL_RAND_RESET_I(1);
     vlSelf->top_tb__DOT__TOP__DOT__finished_recieving = VL_RAND_RESET_I(1);
     vlSelf->top_tb__DOT__TOP__DOT__finished_sending = VL_RAND_RESET_I(1);
@@ -241,7 +244,7 @@ VL_ATTR_COLD void Vtop_tb___024root___ctor_var_reset(Vtop_tb___024root* vlSelf) 
     vlSelf->__Vdly__top_tb__DOT__TOP__DOT__TIMER__DOT__cycles = VL_RAND_RESET_I(27);
     vlSelf->__Vtrigprevexpr___TOP__top_tb__DOT__CLK_100MHZ__0 = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigprevexpr___TOP__top_tb__DOT__TOP__DOT__rst_i__0 = VL_RAND_RESET_I(1);
-    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 5; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;
     }
 }
