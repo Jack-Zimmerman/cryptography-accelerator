@@ -1,13 +1,12 @@
 `timescale 1ns/10ps
 `define CLK_RATE 100_000_000
-`define CLKS_PER_BIT 2000
+`define CLKS_PER_BIT 200
 
 module top 
 (
     input logic CLK_100MHZ,
-    output logic UART_RXD,
     input logic UART_TXD,
-    output logic [15:0] LED
+    output logic UART_RXD
 );
 
 
@@ -20,7 +19,7 @@ logic finished_sending; //status bit from UART tx
 logic finished_read_byte; //byte completion for rx
 logic finished_write_byte; //byte completion for tx
 logic write_enable; //enable for UART tx
-logic read_enable;
+logic read_enable; //enable for UART rx
 logic [7:0] read_bytes_passed; //we need to tally 608/8 = 76 bytes to read block info
 logic [7:0] write_bytes_passed; //we need to tally 32/8 = 4 bytes to transmit nonce
 logic [7:0] tx_byte; //feed buffer for tx
@@ -37,7 +36,7 @@ logic [607:0] block_info; //everything needed for hashing besides nonce
 logic [127:0] repeat_bytes; //bytes repeated for safety
 logic [255:0] best_hash; //lowest hash achieved
 logic [31:0] best_hash_nonce; //nonce corrosponding with best_hash
-logic [31:0] best_hash_nonce_copy;
+logic [31:0] best_hash_nonce_copy; //copy of nonce
 
 
 
@@ -146,6 +145,6 @@ always @(posedge CLK_100MHZ) begin
     end
 end
 
-assign LED[15:0] = block_info[23:8];
+assign LED[7:0] = read_bytes_passed;
 
 endmodule
