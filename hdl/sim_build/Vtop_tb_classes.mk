@@ -25,6 +25,7 @@ VM_TRACE_FST = 0
 VM_CLASSES_FAST += \
 	Vtop_tb \
 	Vtop_tb___024root__DepSet_hf8625a3e__0 \
+	Vtop_tb___024root__DepSet_hf8625a3e__1 \
 	Vtop_tb___024root__DepSet_h6b5a2dfc__0 \
 	Vtop_tb___024root__DepSet_h6b5a2dfc__1 \
 	Vtop_tb___024root__DepSet_h6b5a2dfc__2 \
@@ -37,7 +38,9 @@ VM_CLASSES_SLOW += \
 	Vtop_tb__ConstPool_0 \
 	Vtop_tb___024root__Slow \
 	Vtop_tb___024root__DepSet_hf8625a3e__0__Slow \
+	Vtop_tb___024root__DepSet_hf8625a3e__1__Slow \
 	Vtop_tb___024root__DepSet_h6b5a2dfc__0__Slow \
+	Vtop_tb___024root__DepSet_h6b5a2dfc__1__Slow \
 	Vtop_tb_doublesha__Slow \
 	Vtop_tb_doublesha__DepSet_hb07c5ed0__0__Slow \
 
