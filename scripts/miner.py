@@ -76,7 +76,7 @@ def count_leading_zeroes(s):
 def get_historial_hashrate(best_hash, seconds_passed):
     difficulty = 16 ** count_leading_zeroes(best_hash)
     
-    return round((difficulty / 100_000) / seconds_passed, 3)
+    return round(difficulty / 100_000 / seconds_passed, 3)
 
 def write_block(ser, block):
     ba = bytearray.fromhex(block)
@@ -96,9 +96,10 @@ def read_result_hash(ser):
             hex_byte = "0" + hex_byte
 
         #skip first redundancy byte
-        if (i % 2):
+        if (i % 2 == 0):
             result_hash = result_hash + hex_byte
     
+    ser.flushInput()
     return result_hash
 
 
@@ -121,7 +122,7 @@ if __name__ == "__main__":
     show_host_benchmark()
     show_fpga_benchmark()
     
-    current_header = blockchain.get_latest_block_header()
+    current_header = EXAMPLE_BLOCK
     
     try:
         while True:
@@ -129,7 +130,7 @@ if __name__ == "__main__":
 
             if (cycles_passed % 50 == 0):
                 console.print_bar() 
-                current_header = blockchain.get_latest_block_header()
+                current_header = EXAMPLE_BLOCK
                 print(f"Working on header: {EXAMPLE_BLOCK}")
             
             do_cycle(ser, current_header)

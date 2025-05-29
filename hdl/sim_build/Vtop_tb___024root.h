@@ -38,7 +38,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vtop_tb___024root final : public VerilatedMod
     CData/*0:0*/ top_tb__DOT__TOP__DOT__finished_sending;
     CData/*7:0*/ top_tb__DOT__TOP__DOT__read_bytes_passed;
     CData/*7:0*/ top_tb__DOT__TOP__DOT__write_bytes_passed;
-    CData/*2:0*/ top_tb__DOT__TOP__DOT__repeat_bytes_sent;
+    CData/*4:0*/ top_tb__DOT__TOP__DOT__repeat_bytes_sent;
     CData/*7:0*/ top_tb__DOT__TOP__DOT__tx_byte;
     CData/*0:0*/ top_tb__DOT__TOP__DOT__second_tick;
     CData/*2:0*/ top_tb__DOT__TOP__DOT__FSM__DOT__state;

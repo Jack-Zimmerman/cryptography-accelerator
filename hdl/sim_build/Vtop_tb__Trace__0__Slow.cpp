@@ -45,7 +45,7 @@ VL_ATTR_COLD void Vtop_tb___024root__trace_init_sub__TOP__0(Vtop_tb___024root* v
     tracep->declBit(c+9,0,"read_enable",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::VAR, VerilatedTraceSigType::LOGIC, false,-1);
     tracep->declBus(c+236,0,"read_bytes_passed",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::VAR, VerilatedTraceSigType::LOGIC, false,-1, 7,0);
     tracep->declBus(c+237,0,"write_bytes_passed",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::VAR, VerilatedTraceSigType::LOGIC, false,-1, 7,0);
-    tracep->declBus(c+238,0,"repeat_bytes_sent",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::VAR, VerilatedTraceSigType::LOGIC, false,-1, 2,0);
+    tracep->declBus(c+238,0,"repeat_bytes_sent",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::VAR, VerilatedTraceSigType::LOGIC, false,-1, 4,0);
     tracep->declBus(c+239,0,"tx_byte",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::VAR, VerilatedTraceSigType::LOGIC, false,-1, 7,0);
     tracep->declBus(c+240,0,"rx_byte",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::VAR, VerilatedTraceSigType::LOGIC, false,-1, 7,0);
     tracep->declBit(c+241,0,"sending",-1, VerilatedTraceSigDirection::NONE, VerilatedTraceSigKind::VAR, VerilatedTraceSigType::LOGIC, false,-1);
@@ -1437,7 +1437,7 @@ VL_ATTR_COLD void Vtop_tb___024root__trace_full_0_sub_0(Vtop_tb___024root* vlSel
     bufp->fullBit(oldp+235,(vlSelf->top_tb__DOT__TOP__DOT__UART_TX__DOT__r_Tx_Done));
     bufp->fullCData(oldp+236,(vlSelf->top_tb__DOT__TOP__DOT__read_bytes_passed),8);
     bufp->fullCData(oldp+237,(vlSelf->top_tb__DOT__TOP__DOT__write_bytes_passed),8);
-    bufp->fullCData(oldp+238,(vlSelf->top_tb__DOT__TOP__DOT__repeat_bytes_sent),3);
+    bufp->fullCData(oldp+238,(vlSelf->top_tb__DOT__TOP__DOT__repeat_bytes_sent),5);
     bufp->fullCData(oldp+239,(vlSelf->top_tb__DOT__TOP__DOT__tx_byte),8);
     bufp->fullCData(oldp+240,(vlSelf->top_tb__DOT__TOP__DOT__UART_RX__DOT__r_Rx_Byte),8);
     bufp->fullBit(oldp+241,(vlSelf->top_tb__DOT__TOP__DOT__UART_TX__DOT__r_Tx_Active));

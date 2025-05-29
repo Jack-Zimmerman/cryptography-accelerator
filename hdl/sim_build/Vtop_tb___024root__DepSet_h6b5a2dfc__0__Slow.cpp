@@ -12,6 +12,7 @@ VL_ATTR_COLD void Vtop_tb___024root___eval_static__TOP(Vtop_tb___024root* vlSelf
     // Body
     vlSelf->top_tb__DOT__UART_RXD = 1U;
     vlSelf->top_tb__DOT__UART_TXD = 0U;
+    vlSelf->top_tb__DOT__TOP__DOT__repeat_bytes_sent = 0U;
     vlSelf->top_tb__DOT__TOP__DOT__HASHCORE__DOT__rst = 0U;
     vlSelf->top_tb__DOT__TOP__DOT__UART_RX__DOT__r_Rx_Data_R = 1U;
     vlSelf->top_tb__DOT__TOP__DOT__UART_RX__DOT__r_Rx_Data = 1U;

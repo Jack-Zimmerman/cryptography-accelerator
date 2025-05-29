@@ -87,7 +87,7 @@ VL_ATTR_COLD void Vtop_tb___024root___ctor_var_reset(Vtop_tb___024root* vlSelf) 
     vlSelf->top_tb__DOT__TOP__DOT__finished_sending = VL_RAND_RESET_I(1);
     vlSelf->top_tb__DOT__TOP__DOT__read_bytes_passed = VL_RAND_RESET_I(8);
     vlSelf->top_tb__DOT__TOP__DOT__write_bytes_passed = VL_RAND_RESET_I(8);
-    vlSelf->top_tb__DOT__TOP__DOT__repeat_bytes_sent = VL_RAND_RESET_I(3);
+    vlSelf->top_tb__DOT__TOP__DOT__repeat_bytes_sent = VL_RAND_RESET_I(5);
     vlSelf->top_tb__DOT__TOP__DOT__tx_byte = VL_RAND_RESET_I(8);
     vlSelf->top_tb__DOT__TOP__DOT__second_tick = VL_RAND_RESET_I(1);
     VL_RAND_RESET_W(608, vlSelf->top_tb__DOT__TOP__DOT__block_info);

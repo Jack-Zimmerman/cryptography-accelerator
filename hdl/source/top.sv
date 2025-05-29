@@ -1,5 +1,5 @@
 `timescale 1ns/10ps
-`define CLK_RATE 100_000_000
+`define CLK_RATE 100_000
 `define CLKS_PER_BIT 200
 
 module top 
@@ -23,7 +23,7 @@ logic write_enable; //enable for UART tx
 logic read_enable; //enable for UART rx
 logic [7:0] read_bytes_passed; //we need to tally 608/8 = 76 bytes to read block info
 logic [7:0] write_bytes_passed; //we need to tally 32/8 = 4 bytes to transmit nonce
-logic [2:0] repeat_bytes_sent; //repeat
+logic [4:0] repeat_bytes_sent = 0; //repeat
 logic [7:0] tx_byte; //feed buffer for tx
 logic [7:0] rx_byte; //reciever buffer from rx
 logic sending; //sending status bit
@@ -123,22 +123,18 @@ always @(posedge CLK_100MHZ) begin
         end
         else if (write_bytes_passed != 8'd32) begin //write next byte
             //first, if we are on zero bytes passed, create copy best hash
-            if (write_bytes_passed == 0 && repeat_bytes_sent == 0) begin
-                copy_hash = best_hash;
-            end
-
-            tx_byte = copy_hash[7:0]; //copy byte to tx (little endian)
-
-            if (repeat_bytes_sent == 3) begin //we have sent four bytes
-                copy_hash = copy_hash >> 8; //shift right.k
+            tx_byte = best_hash[write_bytes_passed*8+:8];
+            
+            if (repeat_bytes_sent == 3) begin
+                repeat_bytes_sent = 0; 
                 write_bytes_passed += 1;
-                repeat_bytes_sent = 0;
             end else begin
                 repeat_bytes_sent += 1; 
             end
         end 
         else begin // when we are done sending all the bytes
             write_bytes_passed = 0;
+            copy_hash = 256'b0;
             finished_sending = 1;
         end
     end    

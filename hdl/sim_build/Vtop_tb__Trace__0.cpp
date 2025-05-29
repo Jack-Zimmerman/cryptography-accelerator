@@ -290,7 +290,7 @@ void Vtop_tb___024root__trace_chg_0_sub_0(Vtop_tb___024root* vlSelf, VerilatedVc
         bufp->chgBit(oldp+234,(vlSelf->top_tb__DOT__TOP__DOT__UART_TX__DOT__r_Tx_Done));
         bufp->chgCData(oldp+235,(vlSelf->top_tb__DOT__TOP__DOT__read_bytes_passed),8);
         bufp->chgCData(oldp+236,(vlSelf->top_tb__DOT__TOP__DOT__write_bytes_passed),8);
-        bufp->chgCData(oldp+237,(vlSelf->top_tb__DOT__TOP__DOT__repeat_bytes_sent),3);
+        bufp->chgCData(oldp+237,(vlSelf->top_tb__DOT__TOP__DOT__repeat_bytes_sent),5);
         bufp->chgCData(oldp+238,(vlSelf->top_tb__DOT__TOP__DOT__tx_byte),8);
         bufp->chgCData(oldp+239,(vlSelf->top_tb__DOT__TOP__DOT__UART_RX__DOT__r_Rx_Byte),8);
         bufp->chgBit(oldp+240,(vlSelf->top_tb__DOT__TOP__DOT__UART_TX__DOT__r_Tx_Active));

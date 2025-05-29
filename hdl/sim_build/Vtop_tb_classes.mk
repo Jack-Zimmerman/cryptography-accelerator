@@ -28,7 +28,6 @@ VM_CLASSES_FAST += \
 	Vtop_tb___024root__DepSet_hf8625a3e__1 \
 	Vtop_tb___024root__DepSet_h6b5a2dfc__0 \
 	Vtop_tb___024root__DepSet_h6b5a2dfc__1 \
-	Vtop_tb___024root__DepSet_h6b5a2dfc__2 \
 	Vtop_tb_doublesha__DepSet_h450c0aea__0 \
 	Vtop_tb_doublesha__DepSet_h450c0aea__1 \
 	Vtop_tb__main \

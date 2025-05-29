@@ -73,7 +73,7 @@ module top_tb();
         end
 
 
-        for (int i = 0; i < 32; i++) begin
+        for (int i = 0; i < 32*3; i++) begin
             pass_baud(); //start
 
             for (int b = 0; b < 8; b++) begin
