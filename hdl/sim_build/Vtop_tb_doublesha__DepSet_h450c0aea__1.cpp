@@ -834,7 +834,6 @@ VL_INLINE_OPT void Vtop_tb_doublesha___nba_sequent__TOP__top_tb__DOT__TOP__DOT__
     vlSelf->__PVT__sha_core__DOT__F = __Vdly__sha_core__DOT__F;
     vlSelf->__PVT__sha_core__DOT__G = __Vdly__sha_core__DOT__G;
     vlSelf->__PVT__sha_core__DOT__H = __Vdly__sha_core__DOT__H;
-    vlSelf->__PVT__sha_core__DOT__read_counter = __Vdly__sha_core__DOT__read_counter;
     vlSelf->__PVT__sha_core__DOT__round_plus_1 = (0x7fU 
                                                   & ((IData)(1U) 
                                                      + (IData)(vlSelf->__PVT__sha_core__DOT__round)));
@@ -862,25 +861,6 @@ VL_INLINE_OPT void Vtop_tb_doublesha___nba_sequent__TOP__top_tb__DOT__TOP__DOT__
                                                      ^ 
                                                      VL_SHIFTR_III(32,32,32, vlSelf->__PVT__sha_core__DOT__W1, 3U))) 
                                                    + vlSelf->__PVT__sha_core__DOT__W0)));
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[0U] 
-        = vlSelf->__PVT__sha_core__DOT__H;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[1U] 
-        = vlSelf->__PVT__sha_core__DOT__G;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[2U] 
-        = vlSelf->__PVT__sha_core__DOT__F;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[3U] 
-        = vlSelf->__PVT__sha_core__DOT__E;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[4U] 
-        = vlSelf->__PVT__sha_core__DOT__D;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[5U] 
-        = vlSelf->__PVT__sha_core__DOT__C;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[6U] 
-        = (IData)((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
-                    << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))));
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[7U] 
-        = (IData)(((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
-                     << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))) 
-                   >> 0x20U));
     vlSelf->__PVT__sha_core__DOT__T1_32 = (vlSelf->__PVT__sha_core__DOT__H 
                                            + ((((vlSelf->__PVT__sha_core__DOT__E 
                                                  << 0x1aU) 
@@ -904,6 +884,26 @@ VL_INLINE_OPT void Vtop_tb_doublesha___nba_sequent__TOP__top_tb__DOT__TOP__DOT__
                                                  + 
                                                  (vlSelf->__PVT__sha_core__DOT__Kt 
                                                   + vlSelf->__PVT__sha_core__DOT__Wt))));
+    vlSelf->__PVT__sha_core__DOT__read_counter = __Vdly__sha_core__DOT__read_counter;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[0U] 
+        = vlSelf->__PVT__sha_core__DOT__H;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[1U] 
+        = vlSelf->__PVT__sha_core__DOT__G;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[2U] 
+        = vlSelf->__PVT__sha_core__DOT__F;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[3U] 
+        = vlSelf->__PVT__sha_core__DOT__E;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[4U] 
+        = vlSelf->__PVT__sha_core__DOT__D;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[5U] 
+        = vlSelf->__PVT__sha_core__DOT__C;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[6U] 
+        = (IData)((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
+                    << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))));
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[7U] 
+        = (IData)(((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
+                     << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))) 
+                   >> 0x20U));
     vlSelf->__PVT__sha_core__DOT__next_E = (vlSelf->__PVT__sha_core__DOT__D 
                                             + vlSelf->__PVT__sha_core__DOT__T1_32);
     vlSelf->__PVT__sha_core__DOT__next_A = (vlSelf->__PVT__sha_core__DOT__T1_32 
@@ -1754,7 +1754,6 @@ VL_INLINE_OPT void Vtop_tb_doublesha___nba_sequent__TOP__top_tb__DOT__TOP__DOT__
     vlSelf->__PVT__sha_core__DOT__F = __Vdly__sha_core__DOT__F;
     vlSelf->__PVT__sha_core__DOT__G = __Vdly__sha_core__DOT__G;
     vlSelf->__PVT__sha_core__DOT__H = __Vdly__sha_core__DOT__H;
-    vlSelf->__PVT__sha_core__DOT__read_counter = __Vdly__sha_core__DOT__read_counter;
     vlSelf->__PVT__sha_core__DOT__round_plus_1 = (0x7fU 
                                                   & ((IData)(1U) 
                                                      + (IData)(vlSelf->__PVT__sha_core__DOT__round)));
@@ -1782,25 +1781,6 @@ VL_INLINE_OPT void Vtop_tb_doublesha___nba_sequent__TOP__top_tb__DOT__TOP__DOT__
                                                      ^ 
                                                      VL_SHIFTR_III(32,32,32, vlSelf->__PVT__sha_core__DOT__W1, 3U))) 
                                                    + vlSelf->__PVT__sha_core__DOT__W0)));
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[0U] 
-        = vlSelf->__PVT__sha_core__DOT__H;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[1U] 
-        = vlSelf->__PVT__sha_core__DOT__G;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[2U] 
-        = vlSelf->__PVT__sha_core__DOT__F;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[3U] 
-        = vlSelf->__PVT__sha_core__DOT__E;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[4U] 
-        = vlSelf->__PVT__sha_core__DOT__D;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[5U] 
-        = vlSelf->__PVT__sha_core__DOT__C;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[6U] 
-        = (IData)((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
-                    << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))));
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[7U] 
-        = (IData)(((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
-                     << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))) 
-                   >> 0x20U));
     vlSelf->__PVT__sha_core__DOT__T1_32 = (vlSelf->__PVT__sha_core__DOT__H 
                                            + ((((vlSelf->__PVT__sha_core__DOT__E 
                                                  << 0x1aU) 
@@ -1824,6 +1804,26 @@ VL_INLINE_OPT void Vtop_tb_doublesha___nba_sequent__TOP__top_tb__DOT__TOP__DOT__
                                                  + 
                                                  (vlSelf->__PVT__sha_core__DOT__Kt 
                                                   + vlSelf->__PVT__sha_core__DOT__Wt))));
+    vlSelf->__PVT__sha_core__DOT__read_counter = __Vdly__sha_core__DOT__read_counter;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[0U] 
+        = vlSelf->__PVT__sha_core__DOT__H;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[1U] 
+        = vlSelf->__PVT__sha_core__DOT__G;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[2U] 
+        = vlSelf->__PVT__sha_core__DOT__F;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[3U] 
+        = vlSelf->__PVT__sha_core__DOT__E;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[4U] 
+        = vlSelf->__PVT__sha_core__DOT__D;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[5U] 
+        = vlSelf->__PVT__sha_core__DOT__C;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[6U] 
+        = (IData)((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
+                    << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))));
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[7U] 
+        = (IData)(((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
+                     << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))) 
+                   >> 0x20U));
     vlSelf->__PVT__sha_core__DOT__next_E = (vlSelf->__PVT__sha_core__DOT__D 
                                             + vlSelf->__PVT__sha_core__DOT__T1_32);
     vlSelf->__PVT__sha_core__DOT__next_A = (vlSelf->__PVT__sha_core__DOT__T1_32 
@@ -2674,7 +2674,6 @@ VL_INLINE_OPT void Vtop_tb_doublesha___nba_sequent__TOP__top_tb__DOT__TOP__DOT__
     vlSelf->__PVT__sha_core__DOT__F = __Vdly__sha_core__DOT__F;
     vlSelf->__PVT__sha_core__DOT__G = __Vdly__sha_core__DOT__G;
     vlSelf->__PVT__sha_core__DOT__H = __Vdly__sha_core__DOT__H;
-    vlSelf->__PVT__sha_core__DOT__read_counter = __Vdly__sha_core__DOT__read_counter;
     vlSelf->__PVT__sha_core__DOT__round_plus_1 = (0x7fU 
                                                   & ((IData)(1U) 
                                                      + (IData)(vlSelf->__PVT__sha_core__DOT__round)));
@@ -2702,25 +2701,6 @@ VL_INLINE_OPT void Vtop_tb_doublesha___nba_sequent__TOP__top_tb__DOT__TOP__DOT__
                                                      ^ 
                                                      VL_SHIFTR_III(32,32,32, vlSelf->__PVT__sha_core__DOT__W1, 3U))) 
                                                    + vlSelf->__PVT__sha_core__DOT__W0)));
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[0U] 
-        = vlSelf->__PVT__sha_core__DOT__H;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[1U] 
-        = vlSelf->__PVT__sha_core__DOT__G;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[2U] 
-        = vlSelf->__PVT__sha_core__DOT__F;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[3U] 
-        = vlSelf->__PVT__sha_core__DOT__E;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[4U] 
-        = vlSelf->__PVT__sha_core__DOT__D;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[5U] 
-        = vlSelf->__PVT__sha_core__DOT__C;
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[6U] 
-        = (IData)((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
-                    << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))));
-    vlSelf->__PVT__sha_core__DOT__SHA256_result[7U] 
-        = (IData)(((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
-                     << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))) 
-                   >> 0x20U));
     vlSelf->__PVT__sha_core__DOT__T1_32 = (vlSelf->__PVT__sha_core__DOT__H 
                                            + ((((vlSelf->__PVT__sha_core__DOT__E 
                                                  << 0x1aU) 
@@ -2744,6 +2724,26 @@ VL_INLINE_OPT void Vtop_tb_doublesha___nba_sequent__TOP__top_tb__DOT__TOP__DOT__
                                                  + 
                                                  (vlSelf->__PVT__sha_core__DOT__Kt 
                                                   + vlSelf->__PVT__sha_core__DOT__Wt))));
+    vlSelf->__PVT__sha_core__DOT__read_counter = __Vdly__sha_core__DOT__read_counter;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[0U] 
+        = vlSelf->__PVT__sha_core__DOT__H;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[1U] 
+        = vlSelf->__PVT__sha_core__DOT__G;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[2U] 
+        = vlSelf->__PVT__sha_core__DOT__F;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[3U] 
+        = vlSelf->__PVT__sha_core__DOT__E;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[4U] 
+        = vlSelf->__PVT__sha_core__DOT__D;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[5U] 
+        = vlSelf->__PVT__sha_core__DOT__C;
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[6U] 
+        = (IData)((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
+                    << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))));
+    vlSelf->__PVT__sha_core__DOT__SHA256_result[7U] 
+        = (IData)(((((QData)((IData)(vlSelf->__PVT__sha_core__DOT__A)) 
+                     << 0x20U) | (QData)((IData)(vlSelf->__PVT__sha_core__DOT__B))) 
+                   >> 0x20U));
     vlSelf->__PVT__sha_core__DOT__next_E = (vlSelf->__PVT__sha_core__DOT__D 
                                             + vlSelf->__PVT__sha_core__DOT__T1_32);
     vlSelf->__PVT__sha_core__DOT__next_A = (vlSelf->__PVT__sha_core__DOT__T1_32 

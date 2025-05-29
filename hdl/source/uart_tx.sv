@@ -120,7 +120,6 @@ module uart_tx
               end
             else
               begin
-                $display("finished writing byte: %h", r_Tx_Data);
                 r_Tx_Done     <= 1'b1;
                 r_Clock_Count <= 0;
                 r_SM_Main     <= s_CLEANUP;

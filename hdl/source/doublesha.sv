@@ -10,7 +10,6 @@ module doublesha(
     output logic [255:0] hash
 );
 
-
 logic [31:0] text_i;
 logic [511:0] tmp_i;
 logic [31:0] tmp; 
@@ -145,7 +144,5 @@ always @(posedge clk_i) begin
         end
     end
 end
-
-
 
 endmodule

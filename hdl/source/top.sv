@@ -6,7 +6,8 @@ module top
 (
     input logic CLK_100MHZ,
     input logic UART_TXD,
-    output logic UART_RXD
+    output logic UART_RXD,
+    output logic [15:0] LED
 );
 
 
@@ -22,6 +23,7 @@ logic write_enable; //enable for UART tx
 logic read_enable; //enable for UART rx
 logic [7:0] read_bytes_passed; //we need to tally 608/8 = 76 bytes to read block info
 logic [7:0] write_bytes_passed; //we need to tally 32/8 = 4 bytes to transmit nonce
+logic [2:0] repeat_bytes_sent; //repeat
 logic [7:0] tx_byte; //feed buffer for tx
 logic [7:0] rx_byte; //reciever buffer from rx
 logic sending; //sending status bit
@@ -33,8 +35,8 @@ logic second_tick; //goes high when second has passed
 //MINING VARIABLES
 logic hash_enable; //enable for hashing 
 logic [607:0] block_info; //everything needed for hashing besides nonce
-logic [127:0] repeat_bytes; //bytes repeated for safety
 logic [255:0] best_hash; //lowest hash achieved
+logic [255:0] copy_hash;
 logic [31:0] best_hash_nonce; //nonce corrosponding with best_hash
 logic [31:0] best_hash_nonce_copy; //copy of nonce
 
@@ -87,64 +89,63 @@ uart_tx #(`CLKS_PER_BIT) UART_TX (
 
 
 
+
+
 always @(posedge CLK_100MHZ) begin
-    //handle rx_byte
-    if (read_enable) begin 
-        finished_sending = 0;
+    finished_sending = 0;
+    //take in bytes from computer, if not wait
+    if (read_enable) begin
+        if (read_bytes_passed == 8'd76) begin
+            finished_recieving = 1;
+            $display("Block info: %h", block_info);
+            read_bytes_passed = 0;
+        end 
+        else if (finished_read_byte) begin
+            read_bytes_passed += 1;
+            //load read byte into block
 
-        if (finished_read_byte || read_bytes_passed == 8'd76) begin
-            if (read_bytes_passed == 8'd76) begin // we read the whole byte
-                finished_recieving = 1; //set finish correctly
-                $display("block_info: %h", block_info);
-                read_bytes_passed = 0; 
-            end else begin //otherwise read byte
-                read_bytes_passed += 1;
+            //little endian
+            block_info[607:600] = rx_byte;
 
-                //serially load in block
-                block_info[607:600] = rx_byte;
-                
-                //shift for every read except the last
-                if (read_bytes_passed != 8'd76) begin
-                    block_info = block_info >> 8;
-                end
+            //only if we are not on the last byte, shift one byte
+            if (read_bytes_passed != 8'd76) begin
+                block_info = block_info >> 8; 
             end
         end
-    end else if (write_enable) begin
+    end
+
+    if (write_enable) begin
         finished_recieving = 0;
 
-        if (finished_write_byte || write_bytes_passed == 8'b0) begin // we write the next byte
-            if (write_bytes_passed == 8'b0) begin
-                //copy bytes of nonce 4 times for safety
-                best_hash_nonce_copy = best_hash_nonce;
 
-                for (int a = 0; a < 4; a++) begin
-                    for (int b = 0; b < 4; b++) begin
-                        repeat_bytes[127:120] = best_hash_nonce_copy[7:0];
-                        repeat_bytes = repeat_bytes >> 8;
-                    end
-
-                    best_hash_nonce_copy = best_hash_nonce_copy >> 8;
-                end
-                
+        if (sending) begin
+            //do nothing
+        end
+        else if (write_bytes_passed != 8'd32) begin //write next byte
+            //first, if we are on zero bytes passed, create copy best hash
+            if (write_bytes_passed == 0 && repeat_bytes_sent == 0) begin
+                copy_hash = best_hash;
             end
-            
-            if (write_bytes_passed == 8'd16) begin
-                finished_sending = 1;
-                write_bytes_passed = 0;
-                $display("Nonce for hash: %h", best_hash);
-            end else begin //serially feed through the nonce
-                //$display("Wrote byte: %h", tx_byte);
-                tx_byte = repeat_bytes[7:0];
-                repeat_bytes = repeat_bytes >> 8;
 
+            tx_byte = copy_hash[7:0]; //copy byte to tx (little endian)
+
+            if (repeat_bytes_sent == 3) begin //we have sent four bytes
+                copy_hash = copy_hash >> 8; //shift right.k
                 write_bytes_passed += 1;
+                repeat_bytes_sent = 0;
+            end else begin
+                repeat_bytes_sent += 1; 
             end
         end 
-    end else begin
-        //hashing
-    end
+        else begin // when we are done sending all the bytes
+            write_bytes_passed = 0;
+            finished_sending = 1;
+        end
+    end    
 end
 
-assign LED[7:0] = read_bytes_passed;
+assign LED[15:8] = read_bytes_passed;
+assign LED[0] = read_enable;
+assign LED[1] = write_enable;
 
 endmodule

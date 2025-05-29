@@ -18,6 +18,8 @@ logic rst = 0;//local reset
 
 //generate 8 hash cores
 genvar i;
+genvar a;
+genvar b;
 
 generate
     for (i = 0; i < 10; i = i+1) begin
@@ -31,6 +33,16 @@ generate
     end
 endgenerate
 
+
+//reverse bit order for hash comparison
+generate
+    for (a = 0; a < 10; a = a+1) begin
+        for (b = 0 ; b <= 255; b = b + 1) begin
+            assign reverse_output_hashes[a][255-b] = output_hashes[a][b];
+        end
+    end
+endgenerate
+
 //set initial nonce value
 //set initial target hash value
 initial begin
@@ -41,14 +53,6 @@ initial begin
 end
 
 
-//reverse bit order for hash comparison
-always @(*) begin
-    for (int i = 0; i < 10; i++) begin
-        for (int b = 0; b < 255; b++) begin
-            reverse_output_hashes[i][255-b] = output_hashes[i][b];
-        end
-    end
-end
 
 
 always @(posedge clk) begin
@@ -71,6 +75,7 @@ always @(posedge clk) begin
         //send all high-value hashes to memory
         for (int i = 0; i < 10; i++) begin
             if (reverse_output_hashes[i] < best_hash_reverse) begin
+                $display("%h %h", output_hashes[i], reverse_output_hashes[i]);
                 best_hash = output_hashes[i];
                 best_hash_reverse = reverse_output_hashes[i];
                 best_hash_nonce = nonces[i];
